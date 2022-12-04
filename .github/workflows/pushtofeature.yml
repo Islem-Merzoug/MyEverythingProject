@@ -1,11 +1,11 @@
 # This is a basic workflow to help you get started with Actions
 
-name: PushToFeature
+name: PushTheFeature
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: demobranch
+    branches: featurebranch
    # Jobs to be executed
 jobs:
     pmd-run:
@@ -26,7 +26,7 @@ jobs:
             # Run PMD scan
             - name: 'Run PMD scan'
               run: ~/pmd/bin/run.sh pmd -d force-app -R pmd/ruleset.xml -f text
-    action-pull-request:
+    action-pull-request-develop:
       runs-on: ubuntu-latest
       steps:
       - name: Checkout repoistory
@@ -39,6 +39,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_SCOPED_TOKEN }}
         with:
-            github_token: ${{ secrets.REPO_SCOPED_TOKEN }}
-            title: Automatic pull request                           
-            get_diff: true         
+          target_branch: develop
+          github_token: ${{ secrets.REPO_SCOPED_TOKEN }}
+          title: Automatic pull request                           
+          get_diff: true      
