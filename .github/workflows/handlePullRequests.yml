@@ -28,7 +28,7 @@ jobs:
             # Run PMD scan
             - name: 'Run PMD scan'
               run: ~/pmd/bin/run.sh pmd -d force-app -R pmd/ruleset.xml -f text
-    uat-scratch-org-test:
+    scratch-org-test:
         runs-on: ubuntu-latest        
         if: ${{ github.actor != 'dependabot[bot]' }}
         steps:
@@ -68,7 +68,7 @@ jobs:
             - name: 'Push source to scratch org'
               run: sfdx force:source:push
               
-           # Run Apex tests in scratch org
+            # Run Apex tests in scratch org
             - name: 'Run Apex tests'
               run: sfdx force:apex:test:run -c -r human -d ./tests/apex -w 20
 
